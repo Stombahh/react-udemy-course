@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Radium from 'radium';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -44,11 +45,16 @@ class App extends Component {
 
   render() {
     const buttonStyle = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }
     };
 
     let persons = null;
@@ -66,11 +72,28 @@ class App extends Component {
           })}
         </div>
       );
+      buttonStyle.backgroundColor = 'red';
+      buttonStyle[':hover'] = {
+        backgroundColor: 'salmon',
+        color: 'black'
+      }
+    }
+
+    let classes = []
+    if (this.state.persons.length <= 2) {
+      classes.push('red'); // classes =  ['red']
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push('bold'); // classes =  ['bold']
+    } 
+    if (this.state.persons.length < 1) {
+      classes.push('fontSize'); // classes =  ['fontSize']
     }
 
     return (
       <div className="App">
-        <h1>You can delete cards by clicking the paragraph</h1>
+        <h2>You can delete cards by clicking the paragraph</h2>
+        <p className={classes.join(' ')}>Random text</p>
         <button
           style={buttonStyle}
           onClick={this.togglePersonsHandler}>Toggle Persons</button>
@@ -80,4 +103,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Radium(App);
