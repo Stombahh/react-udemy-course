@@ -1,7 +1,21 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import './App.css';
-import Radium from 'radium';
 import Person from './Person/Person';
+
+const StyledButton = styled.button`
+  background-color: ${props => props.altColor ? 'red' : 'green'};
+  color: white;
+  font: inherit;
+  border: 1px solid blue;
+  padding: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${props => props.altColor ? 'salmon' : 'lightgreen'};
+    color: black; 
+  }
+`;
 
 class App extends Component {
   state = {
@@ -44,18 +58,18 @@ class App extends Component {
   }
 
   render() {
-    const buttonStyle = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
-    };
+    // const buttonStyle = {
+    //   backgroundColor: 'green',
+    //   color: 'white',
+    //   font: 'inherit',
+    //   border: '1px solid blue',
+    //   padding: '8px',
+    //   cursor: 'pointer',
+    //   ':hover': {
+    //     backgroundColor: 'lightgreen',
+    //     color: 'black'
+    //   }
+    // };
 
     let persons = null;
 
@@ -72,11 +86,11 @@ class App extends Component {
           })}
         </div>
       );
-      buttonStyle.backgroundColor = 'red';
-      buttonStyle[':hover'] = {
-        backgroundColor: 'salmon',
-        color: 'black'
-      }
+      // buttonStyle.backgroundColor = 'red';
+      // buttonStyle[':hover'] = {
+      //   backgroundColor: 'salmon',
+      //   color: 'black'
+      // }
     }
 
     let classes = []
@@ -94,13 +108,13 @@ class App extends Component {
       <div className="App">
         <h2>You can delete cards by clicking the paragraph</h2>
         <p className={classes.join(' ')}>Random text</p>
-        <button
-          style={buttonStyle}
-          onClick={this.togglePersonsHandler}>Toggle Persons</button>
+        <StyledButton altColor={this.state.showPersons} onClick={this.togglePersonsHandler}>
+          Toggle Persons
+        </StyledButton>
         {persons}
       </div>
     );
   }
 }
 
-export default Radium(App);
+export default App;
