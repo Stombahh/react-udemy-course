@@ -1,21 +1,6 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
-import './App.css';
+import classes from './App.css';
 import Person from './Person/Person';
-
-const StyledButton = styled.button`
-  background-color: ${props => props.altColor ? 'red' : 'green'};
-  color: white;
-  font: inherit;
-  border: 1px solid blue;
-  padding: 8px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${props => props.altColor ? 'salmon' : 'lightgreen'};
-    color: black; 
-  }
-`;
 
 class App extends Component {
   state = {
@@ -58,20 +43,9 @@ class App extends Component {
   }
 
   render() {
-    // const buttonStyle = {
-    //   backgroundColor: 'green',
-    //   color: 'white',
-    //   font: 'inherit',
-    //   border: '1px solid blue',
-    //   padding: '8px',
-    //   cursor: 'pointer',
-    //   ':hover': {
-    //     backgroundColor: 'lightgreen',
-    //     color: 'black'
-    //   }
-    // };
 
     let persons = null;
+    let btnClasses = [classes.Button];
 
     if (this.state.showPersons) {
       persons = (
@@ -86,31 +60,28 @@ class App extends Component {
           })}
         </div>
       );
-      // buttonStyle.backgroundColor = 'red';
-      // buttonStyle[':hover'] = {
-      //   backgroundColor: 'salmon',
-      //   color: 'black'
-      // }
+
+      btnClasses.push(classes.Red);
     }
 
-    let classes = []
+    let assignedClasses = []
     if (this.state.persons.length <= 2) {
-      classes.push('red'); // classes =  ['red']
+      assignedClasses.push(classes.red); // classes =  ['red']
     }
     if (this.state.persons.length <= 1) {
-      classes.push('bold'); // classes =  ['bold']
+      assignedClasses.push(classes.bold); // classes =  ['bold']
     } 
     if (this.state.persons.length < 1) {
-      classes.push('fontSize'); // classes =  ['fontSize']
+      assignedClasses.push(classes.fontSize); // classes =  ['fontSize']
     }
 
     return (
-      <div className="App">
+      <div className={classes.App}>
         <h2>You can delete cards by clicking the paragraph</h2>
-        <p className={classes.join(' ')}>Random text</p>
-        <StyledButton altColor={this.state.showPersons} onClick={this.togglePersonsHandler}>
+        <p className={assignedClasses.join(' ')}>Random text</p>
+        <button className={btnClasses.join(' ')} onClick={this.togglePersonsHandler}>
           Toggle Persons
-        </StyledButton>
+        </button>
         {persons}
       </div>
     );
